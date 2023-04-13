@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 图形报表
+ * 数据可视化
  * @author xiaoxpai
  */
 @Controller

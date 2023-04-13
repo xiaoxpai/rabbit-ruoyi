@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.report;
 
 import com.ruoyi.common.core.controller.BaseController;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -11,5 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/report")
 public class GrapReportController extends BaseController {
-    private String prefix = "system/report";
+    private String prefix = "report";
+
+
+    @GetMapping()
+    public String index()
+    {
+        return prefix +"/grapDemo";
+    }
 }

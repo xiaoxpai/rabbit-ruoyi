@@ -20,4 +20,9 @@ public class GrapReportController extends BaseController {
     {
         return prefix +"/index";
     }
+
+    @GetMapping("/data")
+    public String data(){
+        return  prefix+"/data";
+    }
 }

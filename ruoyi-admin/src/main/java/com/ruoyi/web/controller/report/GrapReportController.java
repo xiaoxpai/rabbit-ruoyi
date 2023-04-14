@@ -18,6 +18,6 @@ public class GrapReportController extends BaseController {
     @GetMapping()
     public String index()
     {
-        return prefix +"/grapDemo";
+        return prefix +"/index";
     }
 }

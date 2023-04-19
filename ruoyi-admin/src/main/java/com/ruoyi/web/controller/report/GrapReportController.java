@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/report")
 public class GrapReportController extends BaseController {
-    private String prefix = "report";
+    private final String prefix = "report";
 
 
     @GetMapping()

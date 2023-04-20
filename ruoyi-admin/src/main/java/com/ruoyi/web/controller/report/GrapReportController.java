@@ -25,4 +25,9 @@ public class GrapReportController extends BaseController {
     public String data(){
         return  prefix+"/data";
     }
+
+    @GetMapping("dataByJson")
+    public String dataByJson(){
+        return prefix+"/dataByJson";
+    }
 }

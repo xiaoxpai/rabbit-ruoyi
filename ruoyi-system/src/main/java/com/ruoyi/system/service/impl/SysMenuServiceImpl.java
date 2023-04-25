@@ -9,6 +9,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.constant.UserConstants;
@@ -111,13 +113,15 @@ public class SysMenuServiceImpl implements ISysMenuService
     {
         List<String> perms = menuMapper.selectPermsByUserId(userId);
         Set<String> permsSet = new HashSet<>();
-        for (String perm : perms)
-        {
-            if (StringUtils.isNotEmpty(perm))
-            {
-                permsSet.addAll(Arrays.asList(perm.trim().split(",")));
-            }
-        }
+        perms.stream().filter(StringUtils::isNotEmpty)
+                .forEach(perm -> permsSet.addAll(Arrays.asList(perm.trim().split(","))));
+//        for (String perm : perms)
+//        {
+//            if (StringUtils.isNotEmpty(perm))
+//            {
+//                permsSet.addAll(Arrays.asList(perm.trim().split(",")));
+//            }
+//        }
         return permsSet;
     }
 
@@ -132,13 +136,15 @@ public class SysMenuServiceImpl implements ISysMenuService
     {
         List<String> perms = menuMapper.selectPermsByRoleId(roleId);
         Set<String> permsSet = new HashSet<>();
-        for (String perm : perms)
-        {
-            if (StringUtils.isNotEmpty(perm))
-            {
-                permsSet.addAll(Arrays.asList(perm.trim().split(",")));
-            }
-        }
+        perms.stream().filter(StringUtils::isNotEmpty)
+                .forEach(perm -> permsSet.addAll(Arrays.asList(perm.trim().split(","))));
+//        for (String perm : perms)
+//        {
+//            if (StringUtils.isNotEmpty(perm))
+//            {
+//                permsSet.addAll(Arrays.asList(perm.trim().split(",")));
+//            }
+//        }
         return permsSet;
     }
 
@@ -189,13 +195,18 @@ public class SysMenuServiceImpl implements ISysMenuService
     {
         LinkedHashMap<String, String> section = new LinkedHashMap<>();
         List<SysMenu> permissions = selectMenuAll(userId);
-        if (StringUtils.isNotEmpty(permissions))
-        {
-            for (SysMenu menu : permissions)
-            {
-                section.put(menu.getUrl(), MessageFormat.format(PREMISSION_STRING, menu.getPerms()));
-            }
-        }
+        //使用lambda表达式
+        permissions.stream().map(SysMenu::getPerms)
+                .filter(StringUtils::isNotEmpty)
+                .forEach(perm -> section.put(perm, MessageFormat.format(PREMISSION_STRING, perm)));
+//        if (StringUtils.isNotEmpty(permissions))
+//        {
+
+//            for (SysMenu menu : permissions)
+//            {
+//                section.put(menu.getUrl(), MessageFormat.format(PREMISSION_STRING, menu.getPerms()));
+//            }
+//        }
         return section;
     }
 
@@ -220,6 +231,7 @@ public class SysMenuServiceImpl implements ISysMenuService
      */
     public List<Ztree> initZtree(List<SysMenu> menuList, List<String> roleMenuList, boolean permsFlag)
     {
+        //
         List<Ztree> ztrees = new ArrayList<Ztree>();
         boolean isCheck = StringUtils.isNotNull(roleMenuList);
         for (SysMenu menu : menuList)
@@ -388,15 +400,17 @@ public class SysMenuServiceImpl implements ISysMenuService
     private List<SysMenu> getChildList(List<SysMenu> list, SysMenu t)
     {
         List<SysMenu> tlist = new ArrayList<SysMenu>();
-        Iterator<SysMenu> it = list.iterator();
-        while (it.hasNext())
-        {
-            SysMenu n = (SysMenu) it.next();
-            if (n.getParentId().longValue() == t.getMenuId().longValue())
-            {
-                tlist.add(n);
-            }
-        }
+        list.stream().filter(n -> n.getParentId().longValue() == t.getMenuId().longValue())
+                .forEach(n -> tlist.add(n));
+//        Iterator<SysMenu> it = list.iterator();
+//        while (it.hasNext())
+//        {
+//            SysMenu n = (SysMenu) it.next();
+//            if (n.getParentId().longValue() == t.getMenuId().longValue())
+//            {
+//                tlist.add(n);
+//            }
+//        }
         return tlist;
     }
 

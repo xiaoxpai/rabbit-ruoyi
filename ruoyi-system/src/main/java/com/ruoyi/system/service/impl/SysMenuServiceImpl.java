@@ -70,6 +70,7 @@ public class SysMenuServiceImpl implements ISysMenuService
     public List<SysMenu> selectMenuList(SysMenu menu, Long userId)
     {
         List<SysMenu> menuList = null;
+        //校验是否Admin管理员用户
         if (SysUser.isAdmin(userId))
         {
             menuList = menuMapper.selectMenuList(menu);

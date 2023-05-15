@@ -2,6 +2,8 @@ package com.ruoyi.web.controller.system;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.hutool.json.JSONUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -43,7 +45,11 @@ public class SysLoginController extends BaseController
         // 如果是Ajax请求，返回Json字符串。
         if (ServletUtils.isAjaxRequest(request))
         {
-            return ServletUtils.renderString(response, "{\"code\":\"1\",\"msg\":\"未登录或登录超时。请重新登录\"}");
+            //创建一个json字符串
+            String str ="{\"code\":\"1\",\"msg\":\"未登录或登录超时。请重新登录\"}";
+            String json = JSONUtil.toJsonStr(str);
+
+            return ServletUtils.renderString(response, json);
         }
         // 是否开启记住我
         mmap.put("isRemembered", rememberMe);

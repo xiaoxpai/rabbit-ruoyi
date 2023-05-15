@@ -133,16 +133,17 @@ public class SysConfigServiceImpl implements ISysConfigService
     @Override
     public void deleteConfigByIds(String ids)
     {
+        //字符串转数组
         Long[] configIds = Convert.toLongArray(ids);
-        for (Long configId : configIds)
-        {
+        //循环删除
+        for (Long configId : configIds) {
             SysConfig config = selectConfigById(configId);
-            if (StringUtils.equals(UserConstants.YES, config.getConfigType()))
+            if (StringUtils.equals(UserConstants.YES, config.getConfigType()))//如果是内置参数，抛出异常，不允许删除，
             {
                 throw new ServiceException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
             }
             configMapper.deleteConfigById(configId);
-            CacheUtils.remove(getCacheName(), getCacheKey(config.getConfigKey()));
+            CacheUtils.remove(getCacheName(), getCacheKey(config.getConfigKey()));//清除缓存，重新加载缓存，保证缓存数据的一致性
         }
     }
 
@@ -153,10 +154,13 @@ public class SysConfigServiceImpl implements ISysConfigService
     public void loadingConfigCache()
     {
         List<SysConfig> configsList = configMapper.selectConfigList(new SysConfig());
-        for (SysConfig config : configsList)
-        {
+        configsList.stream().forEach(config -> {
             CacheUtils.put(getCacheName(), getCacheKey(config.getConfigKey()), config.getConfigValue());
-        }
+        });
+//        for (SysConfig config : configsList)
+//        {
+//            CacheUtils.put(getCacheName(), getCacheKey(config.getConfigKey()), config.getConfigValue());
+//        }
     }
 
     /**

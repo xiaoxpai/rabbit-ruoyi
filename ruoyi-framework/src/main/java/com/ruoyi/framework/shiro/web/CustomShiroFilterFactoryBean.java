@@ -15,11 +15,18 @@ import java.util.Map;
 
 /**
  * 自定义ShiroFilterFactoryBean解决资源中文路径问题
- * 
+ *
+ * <p>
+ *     ShiroFilterFactoryBean作用：是生成一个ShiroFilter的工厂类，最终创建出一个DelegatingFilterProxy过滤器
+ *     这个过滤器会委托给Spring IOC容器中id为shiroFilter的bean进行处理。
+ * </p>
  * @author ruoyi
  */
 public class CustomShiroFilterFactoryBean extends ShiroFilterFactoryBean
 {
+    /**
+     * @return
+     */
     @Override
     public Class<MySpringShiroFilter> getObjectType()
     {
@@ -64,8 +71,15 @@ public class CustomShiroFilterFactoryBean extends ShiroFilterFactoryBean
         return new MySpringShiroFilter((WebSecurityManager) securityManager, chainResolver);
     }
 
+
     private static final class MySpringShiroFilter extends AbstractShiroFilter
     {
+        /**
+         * protected 修饰方法，只能在本类和子类中访问，其他类不能访问，也不能重写，但是可以重载
+         *
+         * @param webSecurityManager 作用：
+         * @param resolver
+         */
         protected MySpringShiroFilter(WebSecurityManager webSecurityManager, FilterChainResolver resolver)
         {
             if (webSecurityManager == null)

@@ -34,7 +34,12 @@ import com.ruoyi.system.service.ISysRoleService;
 
 /**
  * 自定义Realm 处理登录 权限
- * 
+ *  <p>
+ *      1. doGetAuthorizationInfo() 授权
+ *      2. doGetAuthenticationInfo() 认证
+ *      AuthorizingRealm 是一个抽象类，继承了 AuthenticatingRealm，而 AuthenticatingRealm 继承了 CachingRealm，
+ *
+ *  </p>
  * @author ruoyi
  */
 public class UserRealm extends AuthorizingRealm

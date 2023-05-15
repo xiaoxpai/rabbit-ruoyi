@@ -15,6 +15,7 @@
 	<link th:href="@{/ruoyi/css/ry-ui.css?v=4.7.6}" rel="stylesheet"/>
 </head>
 
+<!--引入外部JS或其他组件或插件-->
 <!-- 通用JS -->
 <div th:fragment="footer">
     <script th:inline="javascript"> var ctx = [[@{/}]]; var lockscreen = [[${session.lockscreen}]]; if(lockscreen){window.top.location=ctx+"lockscreen";} </script>

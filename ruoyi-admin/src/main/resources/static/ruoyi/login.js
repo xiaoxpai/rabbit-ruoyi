@@ -2,6 +2,7 @@
 $(function() {
     validateKickout();
     validateRule();
+    //验证码请求
     $('.imgcode').click(function() {
         var url = ctx + "captcha/captchaImage?type=" + captchaType + "&s=" + Math.random();
         $(".imgcode").attr("src", url);

@@ -148,23 +148,18 @@ public class LogAspect
 
     /**
      * 获取请求的参数，放到log中
-     * 
-     * @param operLog 操作日志
+     * @param joinPoint 切点
+     * @param operLog 注解操作日志
      * @throws Exception 异常
      */
-    private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception
-    {
+    private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception {
         Map<String, String[]> map = ServletUtils.getRequest().getParameterMap();
-        if (StringUtils.isNotEmpty(map))
-        {
+        if (StringUtils.isNotEmpty(map)) {
             String params = JSONObject.toJSONString(map, excludePropertyPreFilter());
             operLog.setOperParam(StringUtils.substring(params, 0, 2000));
-        }
-        else
-        {
+        } else {
             Object args = joinPoint.getArgs();
-            if (StringUtils.isNotNull(args))
-            {
+            if (StringUtils.isNotNull(args)) {
                 String params = argsArrayToString(joinPoint.getArgs());
                 operLog.setOperParam(StringUtils.substring(params, 0, 2000));
             }

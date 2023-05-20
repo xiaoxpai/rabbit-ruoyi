@@ -153,11 +153,16 @@ public class LogAspect
      * @throws Exception 异常
      */
     private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception {
+       //解释这段代码
+        //获取参数
         Map<String, String[]> map = ServletUtils.getRequest().getParameterMap();
         if (StringUtils.isNotEmpty(map)) {
+            //如果参数不为空，将参数转换为json字符串，然后截取2000个字符，保存到数据库中
+            //参数1： 请求参数 参数2：排除敏感属性（password)
             String params = JSONObject.toJSONString(map, excludePropertyPreFilter());
             operLog.setOperParam(StringUtils.substring(params, 0, 2000));
         } else {
+            //如果参数为空，获取参数对象，转换为json字符串，然后截取2000个字符，保存到数据库中
             Object args = joinPoint.getArgs();
             if (StringUtils.isNotNull(args)) {
                 String params = argsArrayToString(joinPoint.getArgs());

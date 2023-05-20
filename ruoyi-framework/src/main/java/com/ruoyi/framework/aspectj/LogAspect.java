@@ -182,27 +182,22 @@ public class LogAspect
     /**
      * 参数拼装
      */
-    private String argsArrayToString(Object[] paramsArray)
-    {
-        String params = "";
-        if (paramsArray != null && paramsArray.length > 0)
-        {
-            for (Object o : paramsArray)
-            {
-                if (StringUtils.isNotNull(o) && !isFilterObject(o))
-                {
-                    try
-                    {
+    private String argsArrayToString(Object[] paramsArray) {
+        StringBuilder params = new StringBuilder();
+        if (paramsArray != null && paramsArray.length > 0) {
+            for (Object o : paramsArray) {
+                if (StringUtils.isNotNull(o) && !isFilterObject(o)) {
+                    try {
+                        //参数1：Object，参数2： 敏感词(password)过滤
                         Object jsonObj = JSONObject.toJSONString(o, excludePropertyPreFilter());
-                        params += jsonObj.toString() + " ";
-                    }
-                    catch (Exception e)
-                    {
+                        params.append(jsonObj.toString()).append(" ");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
         }
-        return params.trim();
+        return params.toString().trim();
     }
 
     /**
@@ -236,6 +231,7 @@ public class LogAspect
                 return entry.getValue() instanceof MultipartFile;
             }
         }
+        //为什么要判断这些类型 因为这些类型的参数是不需要记录的 例如request response  BindingResult MultipartFile 这些参数是不需要记录的 所以要过滤掉
         return o instanceof MultipartFile || o instanceof HttpServletRequest || o instanceof HttpServletResponse
                 || o instanceof BindingResult;
     }

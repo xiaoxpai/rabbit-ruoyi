@@ -153,7 +153,6 @@ public class LogAspect
      * @throws Exception 异常
      */
     private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception {
-       //解释这段代码
         //获取参数
         Map<String, String[]> map = ServletUtils.getRequest().getParameterMap();
         if (StringUtils.isNotEmpty(map)) {

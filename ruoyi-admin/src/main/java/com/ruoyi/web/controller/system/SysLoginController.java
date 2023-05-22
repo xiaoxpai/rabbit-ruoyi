@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.json.JSONUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -27,6 +29,7 @@ import com.ruoyi.framework.web.service.ConfigService;
  * 
  * @author ruoyi
  */
+@Api(tags = "登录验证")
 @Controller
 public class SysLoginController extends BaseController
 {
@@ -58,6 +61,7 @@ public class SysLoginController extends BaseController
         return "login";
     }
 
+    @ApiOperation("登陆")
     @PostMapping("/login")
     @ResponseBody
     public AjaxResult ajaxLogin(String username, String password, Boolean rememberMe)

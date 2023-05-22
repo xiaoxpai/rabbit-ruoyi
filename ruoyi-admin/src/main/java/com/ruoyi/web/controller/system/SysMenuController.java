@@ -1,6 +1,9 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,7 @@ import com.ruoyi.system.service.ISysMenuService;
  * 
  * @author ruoyi
  */
+@Api(tags = "菜单信息")
 @Controller
 @RequestMapping("/system/menu")
 public class SysMenuController extends BaseController
@@ -44,6 +48,7 @@ public class SysMenuController extends BaseController
         return prefix + "/menu";
     }
 
+    @ApiOperation("菜单列表")
     @RequiresPermissions("system:menu:list")
     @PostMapping("/list")
     @ResponseBody
@@ -57,6 +62,7 @@ public class SysMenuController extends BaseController
     /**
      * 删除菜单
      */
+    @ApiOperation("删除菜单")
     @Log(title = "菜单管理", businessType = BusinessType.DELETE)
     @RequiresPermissions("system:menu:remove")
     @GetMapping("/remove/{menuId}")

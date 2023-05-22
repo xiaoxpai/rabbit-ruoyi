@@ -7,6 +7,7 @@ import com.ruoyi.common.core.domain.Ztree;
 import com.ruoyi.common.core.domain.entity.SysMenu;
 import com.ruoyi.common.core.domain.entity.SysRole;
 import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.web.controller.system.dto.resp.RespSystemMenuTreeDTO;
 
 /**
  * 菜单 业务层
@@ -136,4 +137,12 @@ public interface ISysMenuService
      * @return 结果
      */
     public String checkMenuNameUnique(SysMenu menu);
+
+    /**
+     * 查询菜单下拉树结构
+     * @param menu
+     * @param userId
+     * @return
+     */
+    List<RespSystemMenuTreeDTO> selectMenuTree(SysMenu menu, Long userId);
 }

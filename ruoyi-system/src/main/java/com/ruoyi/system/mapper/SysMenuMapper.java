@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+
+import com.ruoyi.web.controller.system.dto.resp.RespSystemMenuTreeDTO;
 import org.apache.ibatis.annotations.Param;
 import com.ruoyi.common.core.domain.entity.SysMenu;
 
@@ -129,4 +131,11 @@ public interface SysMenuMapper
      * @return 结果
      */
     public SysMenu checkMenuNameUnique(@Param("menuName") String menuName, @Param("parentId") Long parentId);
+
+    /**
+     * 查询所有菜单
+     * @param menu
+     * @return
+     */
+    List<RespSystemMenuTreeDTO> queryMenuList(SysMenu menu);
 }

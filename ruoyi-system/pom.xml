@@ -23,11 +23,6 @@
             <artifactId>ruoyi-common</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-admin</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

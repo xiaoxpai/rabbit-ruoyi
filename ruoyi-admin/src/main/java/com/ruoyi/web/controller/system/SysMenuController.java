@@ -63,14 +63,15 @@ public class SysMenuController extends BaseController
     /**
      * 查询所有菜单，树结构
      */
-    @GetMapping("/trees")
-    @ResponseBody
-    public List<RespSystemMenuTreeDTO> treeselect(SysMenu menu)
-    {
-        Long userId = ShiroUtils.getUserId();
-        List<RespSystemMenuTreeDTO> menuTree = menuService.selectMenuTree(menu, userId);
-        return menuTree;
-    }
+//    @ApiOperation("菜单列表")
+//    @RequiresPermissions("system:menu:trees")
+//    @GetMapping("/trees")
+//    @ResponseBody
+//    public List<RespSystemMenuTreeDTO> treeselect(SysMenu menu)
+//    {
+//        Long userId = ShiroUtils.getUserId();
+//        return menuService.selectMenuTree(menu, userId);
+//    }
 
 
     /**

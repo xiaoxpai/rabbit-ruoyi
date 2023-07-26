@@ -133,6 +133,9 @@
 		<include refid="selectMenuVo"/>
 		where menu_name=#{menuName} and parent_id = #{parentId} limit 1
 	</select>
+	<select id="queryMenuList" resultType="com.ruoyi.system.domain.dto.resp.RespSystemMenuTreeDTO">
+		select * from sys_menu
+	</select>
 
 
 	<update id="updateMenu" parameterType="SysMenu">

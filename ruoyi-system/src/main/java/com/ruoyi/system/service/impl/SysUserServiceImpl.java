@@ -213,11 +213,13 @@ public class SysUserServiceImpl implements ISysUserService
     public int insertUser(SysUser user)
     {
         // 新增用户信息
-        int rows = userMapper.insertUser(user);
+        SysUser s = new SysUser();
+        s.setLoginName("mms1");
+        int rows = userMapper.insertUser(s);
         // 新增用户岗位关联
-        insertUserPost(user);
-        // 新增用户与角色管理
-        insertUserRole(user.getUserId(), user.getRoleIds());
+//        insertUserPost(user);
+//        // 新增用户与角色管理
+//        insertUserRole(user.getUserId(), user.getRoleIds());
         return rows;
     }
 

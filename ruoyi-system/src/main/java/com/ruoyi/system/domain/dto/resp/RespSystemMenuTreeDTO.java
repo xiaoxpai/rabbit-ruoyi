@@ -1,9 +1,6 @@
-package com.ruoyi.web.controller.system.dto.resp;
-
-import com.ruoyi.common.core.domain.entity.SysMenu;
+package com.ruoyi.system.domain.dto.resp;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

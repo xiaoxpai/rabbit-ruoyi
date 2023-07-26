@@ -2,6 +2,7 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 
+import com.ruoyi.system.domain.dto.resp.RespSystemMenuTreeDTO;
 import org.apache.ibatis.annotations.Param;
 import com.ruoyi.common.core.domain.entity.SysMenu;
 
@@ -134,11 +135,9 @@ public interface SysMenuMapper
     /**
      * 查询所有菜单
      * @param menu
-     * @return
+     * @return List<RespSystemMenuTreeDTO>
      */
-//    List<RespSystemMenuTreeDTO> queryMenuList(SysMenu menu);
+    List<RespSystemMenuTreeDTO> queryMenuList(SysMenu menu);
 
-    //	<select id="queryMenuList" resultType="com.ruoyi.web.controller.system.dto.resp.RespSystemMenuTreeDTO">
-    //		select * from sys_menu
-    //	</select>
+
 }

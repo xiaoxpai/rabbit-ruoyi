@@ -1,29 +1,19 @@
 package com.ruoyi.common.utils.poi;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -1730,5 +1720,26 @@ public class ExcelUtil<T>
             log.error("获取对象异常{}", e.getMessage());
         }
         return method;
+    }
+
+    public static void main(String[] args) {
+        String fileName="G:\\用户.xlsx";
+        try  {
+            //创建的new File() ，返回的是一个File对象，如何转成InputStream,
+            ExcelUtil<CBN> util = new ExcelUtil<CBN>(CBN.class);
+            List<CBN> cbnList = util.importExcel(  Files.newInputStream(Paths.get(fileName)));
+
+            for (CBN cbn : cbnList) {
+                System.out.println(cbn); // elements  all  null
+            }
+
+        } catch (IOException e) {
+            // 处理异常
+            log.info("文件读取异常");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }

@@ -92,7 +92,7 @@ public class LogAspect
                     operLog.setDeptName(currentUser.getDept().getDeptName());
                 }
             }
-
+            //解释代码： 1.如果controllerLog为空，说明是异常日志，直接设置异常信息，状态为失败
             if (e != null)
             {
                 operLog.setStatus(BusinessStatus.FAIL.ordinal());
@@ -136,6 +136,8 @@ public class LogAspect
         // 是否需要保存request，参数和值
         if (log.isSaveRequestData())
         {
+
+
             // 获取参数的信息，传入到数据库中。
             setRequestValue(joinPoint, operLog);
         }
@@ -148,6 +150,7 @@ public class LogAspect
 
     /**
      * 获取请求的参数，放到log中
+     * 先从request获取请求参数，如果没有，再从joinPoint获取请求参数
      * @param joinPoint 切点
      * @param operLog 注解操作日志
      * @throws Exception 异常

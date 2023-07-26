@@ -1,4 +1,4 @@
-package com.ruoyi.web.controller.system.dto.req;
+package com.ruoyi.system.domain.dto.req;
 
 /**
  * @author Alex

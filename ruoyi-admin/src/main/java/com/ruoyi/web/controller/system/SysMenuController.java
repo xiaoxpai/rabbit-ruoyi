@@ -2,7 +2,7 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 
-import com.ruoyi.web.controller.system.dto.resp.RespSystemMenuTreeDTO;
+import com.ruoyi.system.domain.dto.resp.RespSystemMenuTreeDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -63,15 +63,15 @@ public class SysMenuController extends BaseController
     /**
      * 查询所有菜单，树结构
      */
-//    @ApiOperation("菜单列表")
-//    @RequiresPermissions("system:menu:trees")
-//    @GetMapping("/trees")
-//    @ResponseBody
-//    public List<RespSystemMenuTreeDTO> treeselect(SysMenu menu)
-//    {
-//        Long userId = ShiroUtils.getUserId();
-//        return menuService.selectMenuTree(menu, userId);
-//    }
+    @ApiOperation("菜单列表")
+    @RequiresPermissions("system:menu:trees")
+    @GetMapping("/trees")
+    @ResponseBody
+    public List<RespSystemMenuTreeDTO> treeselect(SysMenu menu)
+    {
+        Long userId = ShiroUtils.getUserId();
+        return menuService.selectMenuTree(menu, userId);
+    }
 
 
     /**

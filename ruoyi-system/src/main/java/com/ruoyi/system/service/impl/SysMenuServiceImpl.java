@@ -6,6 +6,7 @@ import com.ruoyi.common.core.domain.entity.SysMenu;
 import com.ruoyi.common.core.domain.entity.SysRole;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.system.domain.dto.resp.RespSystemMenuTreeDTO;
 import com.ruoyi.system.mapper.SysMenuMapper;
 import com.ruoyi.system.mapper.SysRoleMenuMapper;
 import com.ruoyi.system.service.ISysMenuService;
@@ -352,52 +353,52 @@ public class SysMenuServiceImpl implements ISysMenuService
      * @param userId 用户ID
      * @return List<RespSystemMenuTreeDTO> 菜单集合
      */
-//    @Override
-//    public List<RespSystemMenuTreeDTO> selectMenuTree(SysMenu menu, Long userId) {
-//        List<RespSystemMenuTreeDTO> menuList = menuMapper.queryMenuList(menu);
-//
-//        return buildMenuTree(menuList);
-//    }
+    @Override
+    public List<RespSystemMenuTreeDTO> selectMenuTree(SysMenu menu, Long userId) {
+        List<RespSystemMenuTreeDTO> menuList = menuMapper.queryMenuList(menu);
 
-//    private List<RespSystemMenuTreeDTO> buildMenuTree(List<RespSystemMenuTreeDTO> menuList) {
-//        //创建一个存放根节点的集合
-//        List<RespSystemMenuTreeDTO> result = new ArrayList<>();
-//        //获取所有主键id的集合
-//        List<Long> ids = menuList.stream()
-//                .map(RespSystemMenuTreeDTO::getMenuId)
-//                .collect(Collectors.toList());
-//        //遍历所有的菜单集合
-//        for (RespSystemMenuTreeDTO menu : menuList) {
-//            //如果当前菜单的父id不存在ids集合中，则说明当前菜单为根节点
-//            if (!ids.contains(menu.getParentId())) {
-//                //递归获取当前菜单的子菜单集合
-//                recursionFnMenu(menuList, menu);
-//                //将当前菜单添加到根节点集合中
-//                result.add(menu);
-//            }
-//        }
-//        return result;
-//    }
+        return buildMenuTree(menuList);
+    }
 
-//    private void recursionFnMenu(List<RespSystemMenuTreeDTO> menuList, RespSystemMenuTreeDTO menu) {
-//        //获取子节点列表
-//        List<RespSystemMenuTreeDTO> childList = getMenuChildList(menuList, menu);
-//        menu.setChildren(childList);
-//        //遍历子节点列表
-//        for (RespSystemMenuTreeDTO child : childList) {
-//            //如果子节点的父id存在ids集合中，则递归获取子节点的子节点集合
-//            if (getMenuChildList(menuList, child).size() > 0) {
-//                //如果子节点还有子节点，就递归
-//                recursionFnMenu(menuList, child);
-//            }
-//        }
-//    }
+    private List<RespSystemMenuTreeDTO> buildMenuTree(List<RespSystemMenuTreeDTO> menuList) {
+        //创建一个存放根节点的集合
+        List<RespSystemMenuTreeDTO> result = new ArrayList<>();
+        //获取所有主键id的集合
+        List<Long> ids = menuList.stream()
+                .map(RespSystemMenuTreeDTO::getMenuId)
+                .collect(Collectors.toList());
+        //遍历所有的菜单集合
+        for (RespSystemMenuTreeDTO menu : menuList) {
+            //如果当前菜单的父id不存在ids集合中，则说明当前菜单为根节点
+            if (!ids.contains(menu.getParentId())) {
+                //递归获取当前菜单的子菜单集合
+                recursionFnMenu(menuList, menu);
+                //将当前菜单添加到根节点集合中
+                result.add(menu);
+            }
+        }
+        return result;
+    }
 
-//    private List<RespSystemMenuTreeDTO> getMenuChildList(List<RespSystemMenuTreeDTO> menuList, RespSystemMenuTreeDTO menu) {
-//        return menuList.stream()
-//                .filter(m -> m.getParentId().equals(menu.getMenuId()))
-//                .collect(Collectors.toList());
-//    }
+    private void recursionFnMenu(List<RespSystemMenuTreeDTO> menuList, RespSystemMenuTreeDTO menu) {
+        //获取子节点列表
+        List<RespSystemMenuTreeDTO> childList = getMenuChildList(menuList, menu);
+        menu.setChildren(childList);
+        //遍历子节点列表
+        for (RespSystemMenuTreeDTO child : childList) {
+            //如果子节点的父id存在ids集合中，则递归获取子节点的子节点集合
+            if (getMenuChildList(menuList, child).size() > 0) {
+                //如果子节点还有子节点，就递归
+                recursionFnMenu(menuList, child);
+            }
+        }
+    }
+
+    private List<RespSystemMenuTreeDTO> getMenuChildList(List<RespSystemMenuTreeDTO> menuList, RespSystemMenuTreeDTO menu) {
+        return menuList.stream()
+                .filter(m -> m.getParentId().equals(menu.getMenuId()))
+                .collect(Collectors.toList());
+    }
 
     /**
      * 根据父节点的ID获取所有子节点

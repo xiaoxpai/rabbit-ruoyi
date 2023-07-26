@@ -1,4 +1,4 @@
-package com.ruoyi.web.controller.system.dto.resp;
+package com.ruoyi.system.domain.dto.resp;
 
 /**
  * @author Alex
